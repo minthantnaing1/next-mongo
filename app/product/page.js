@@ -9,19 +9,19 @@ export default function Home() {
   const [category, setCategory] = useState([]);
 
   async function fetchProducts() {
-    const data = await fetch("http://localhost:3000/api/product");
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/product`)
     const p = await data.json();
     setProducts(p);
   }
 
   async function fetchCategory() {
-    const data = await fetch("http://localhost:3000/api/category");
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/category`)
     const c = await data.json();
     setCategory(c);
   }
 
   const createProduct = (data) => {
-    fetch("http://localhost:3000/api/product", {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE}/product`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default function Home() {
   const deleteById = (id) => async () => {
     if (!confirm("Are you sure?")) return;
     
-    await fetch(`http://localhost:3000/api/product/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/product${id}`, {
       method: "DELETE",
     });
     fetchProducts();
